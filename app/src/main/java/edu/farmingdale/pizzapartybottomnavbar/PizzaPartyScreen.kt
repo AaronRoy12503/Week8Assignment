@@ -28,9 +28,6 @@ import androidx.navigation.NavController
 import kotlin.math.ceil
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-// ToDo 7: Using the ViewModel class, create a new ViewModel class called PizzaPartyViewModel as
-// a subclass of ViewModel. Add the following properties to the PizzaPartyViewModel - see Brightspace
-
 @Composable
 fun PizzaPartyScreen(
     modifier: Modifier = Modifier,

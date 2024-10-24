@@ -17,9 +17,6 @@ import androidx.compose.ui.unit.dp
 // - The background color should be Color.Cyan
 // - Fix padding, alignment, and keypad type
 
-// ToDo 5:  Add the GpaAppScreen composable button that clears the input fields when clicked
-
-
 @Composable
 fun GpaAppScreen() {
 

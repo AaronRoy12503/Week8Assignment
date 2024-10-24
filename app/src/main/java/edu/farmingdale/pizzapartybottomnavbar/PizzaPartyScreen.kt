@@ -26,15 +26,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlin.math.ceil
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 // ToDo 7: Using the ViewModel class, create a new ViewModel class called PizzaPartyViewModel as
 // a subclass of ViewModel. Add the following properties to the PizzaPartyViewModel - see Brightspace
 
 @Composable
-fun PizzaPartyScreen(modifier: Modifier = Modifier) {
-    var totalPizzas by remember { mutableIntStateOf(0) }
-    var numPeopleInput by remember { mutableStateOf("") }
-    var hungerLevel by remember { mutableStateOf("Medium") }
+fun PizzaPartyScreen(
+    modifier: Modifier = Modifier,
+    viewModel: PizzaPartyViewModel = viewModel() // Get the ViewModel
+) {
 
     Column(
         modifier = modifier.padding(10.dp)
@@ -44,27 +45,35 @@ fun PizzaPartyScreen(modifier: Modifier = Modifier) {
             fontSize = 38.sp,
             modifier = modifier.padding(bottom = 16.dp)
         )
+
+        // Number of people input field
         NumberField(
             labelText = "Number of people?",
-            textInput = numPeopleInput,
-            onValueChange = { numPeopleInput = it },
+            textInput = viewModel.numPeopleInput,
+            onValueChange = { viewModel.numPeopleInput = it },
             modifier = modifier.padding(bottom = 16.dp).fillMaxWidth()
         )
+
+        // Hunger level radio group
         RadioGroup(
             labelText = "How hungry?",
-            radioOptions = listOf("Light", "Medium", "Hungry", "Very hungry"), // Added "Hungry"
-            selectedOption = hungerLevel,
-            onSelected = { hungerLevel = it },
+            radioOptions = listOf("Light", "Medium", "Hungry", "Very hungry"),
+            selectedOption = viewModel.hungerLevel,
+            onSelected = { viewModel.hungerLevel = it },
             modifier = modifier
         )
+
+        // Display total pizzas
         Text(
-            text = "Total pizzas: $totalPizzas",
+            text = "Total pizzas: ${viewModel.totalPizzas}",
             fontSize = 22.sp,
             modifier = modifier.padding(top = 16.dp, bottom = 16.dp)
         )
+
+        // Calculate button
         Button(
             onClick = {
-                totalPizzas = calculateNumPizzas(numPeopleInput.toIntOrNull() ?: 0, hungerLevel)
+                viewModel.calculatePizzas() // Call the ViewModel function to calculate pizzas
             },
             modifier = modifier.fillMaxWidth()
         ) {

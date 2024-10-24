@@ -19,31 +19,32 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 
-
-// ToDo 1: The splash screen should have the image displayed in the center of the screen.
-
 @Composable
 fun SplashScreen(navController: NavHostController) {
 
-    val scale= remember {
+    val scale = remember {
         Animatable(0f, 1f)
     }
+
     LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 0.5f,
-            animationSpec = tween(durationMillis = 1000,0, easing = {
+            animationSpec = tween(durationMillis = 1000, easing = {
                 OvershootInterpolator(2f).getInterpolation(it)
-            }
-            ))
+            })
+        )
         delay(3000)
         navController.navigate(BottomNavigationItems.PizzaScreen.route)
     }
 
-    Column (modifier = Modifier
-        .wrapContentSize(Alignment.Center)){
-        Image(painter = painterResource(id = R.drawable.fsclogo), contentDescription ="" )
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(painter = painterResource(id = R.drawable.fsclogo), contentDescription = "")
     }
 }
+
 
 
 
